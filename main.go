@@ -48,9 +48,14 @@ func main() {
 	dn := sr.Entries[0].DN
 	fmt.Println("Searchresult------", dn)
 	err = conn.Bind(dn, password)
-	fmt.Println("userBinderr------", err)
+	if err != nil {
+		fmt.Println("userBinderr------", err)
+		return
+	}
+
 	if ldapv3.IsErrorWithCode(err, ldapv3.ErrorNetwork) {
 		fmt.Println("userBinderrWithCode------", err)
+		return
 	}
 	fmt.Println("login ok")
 	return
